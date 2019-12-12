@@ -8,6 +8,7 @@ import pick from 'lodash/pick'
 import isEqual from 'lodash/isEqual'
 import Lane from './Lane'
 import { PopoverWrapper } from 'react-popopo'
+import uuidv1 from 'uuid/v1'
 
 import * as boardActions from 'rt/actions/BoardActions'
 import * as laneActions from 'rt/actions/LaneActions'
@@ -95,8 +96,10 @@ class BoardContainer extends Component {
 
   addNewLane = params => {
     this.hideEditableLane()
-    this.props.actions.addLane(params)
-    this.props.onLaneAdd(params)
+    const id = uuidv1()
+    let lane = {id, ...params}
+    this.props.actions.addLane(lane)
+    this.props.onLaneAdd(lane)
   }
 
   get groupName() {
